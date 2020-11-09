@@ -50,4 +50,3 @@ module.exports = classSchema
 
 require('./classSchemaVirtual')
 require('./classSchemaMethods')
-require('./classSchemaStatics')

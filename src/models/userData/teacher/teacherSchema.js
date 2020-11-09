@@ -102,4 +102,3 @@ module.exports = teacherSchema
 
 require('./teacherSchemaVirtual')
 require('./teacherSchemaMethods')
-require('./teacherSchemaStatics')

@@ -8,6 +8,8 @@
 const yearSchema = require('./yearSchema')
 const mongoose = require('mongoose')
 
+// STATICS
+
 const Year = mongoose.model('Year', yearSchema)
 
 module.exports = Year

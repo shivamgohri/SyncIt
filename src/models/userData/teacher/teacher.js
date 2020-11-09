@@ -8,6 +8,8 @@
 const mongoose = require('mongoose')
 const teacherSchema = require('./teacherSchema')
 
+// STATICS
+
 const Teacher = mongoose.model('Teacher', teacherSchema)
 
 module.exports = Teacher

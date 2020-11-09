@@ -6,23 +6,24 @@
  * @desc [description]
  */
 const mongoose = require('mongoose')
+const validator = require('validator')
 
 const userSchema = new mongoose.Schema({
-    collegeId: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'College'
-    },
-    courseId: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Course'
-    },
-    classId: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Class'
-    },
+    // collegeId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     required: true,
+    //     ref: 'College'
+    // },
+    // courseId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     required: true,
+    //     ref: 'Course'
+    // },
+    // classId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     required: true,
+    //     ref: 'Class'
+    // },
     email: {
         type: String,
         required: true,
@@ -41,7 +42,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
         minlength: 8,
-        maxlength: 20,
+        maxlength: 256,
         validate(password) {
             if (password.toLowerCase().includes('password')) {
                 throw new Error('Password cannot contain password')
@@ -74,28 +75,28 @@ const userSchema = new mongoose.Schema({
             lastName = lastName.charAt(0).toUpperCase() + lastName.slice(1)
         }
     },
-    countryCode: {
-        type: Number, 
-        required: true,
-        validate(code) {
-            if (code.toString().length > 6) {
-                throw new Error('Country Code is invalid')
-            }
-        }
-    },
-    number: {
-        type: Number,
-        required: true,
-        unique: true,
-        validate(number) {
-            if (number.toString().length != 10) {
-                throw new Error('10 digit number is required')
-            }
-        }
-    },
-    avatar: {
-        type: Buffer
-    },
+    // countryCode: {
+    //     type: Number, 
+    //     required: true,
+    //     validate(code) {
+    //         if (code.toString().length > 6) {
+    //             throw new Error('Country Code is invalid')
+    //         }
+    //     }
+    // },
+    // number: {
+    //     type: Number,
+    //     required: true,
+    //     unique: true,
+    //     validate(number) {
+    //         if (number.toString().length != 10) {
+    //             throw new Error('10 digit number is required')
+    //         }
+    //     }
+    // },
+    // avatar: {
+    //     type: Buffer
+    // },
     tokens: [{
         token: {
             type: String,
@@ -117,4 +118,3 @@ module.exports = userSchema
 
 require('./userSchemaVirtual')
 require('./userSchemaMethods')
-require('./userSchemaStatics')

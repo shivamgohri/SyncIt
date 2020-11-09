@@ -51,4 +51,3 @@ module.exports = courseSchema
 
 require('./courseSchemaVirtual')
 require('./courseSchemaMethods')
-require('./courseSchemaStatics')

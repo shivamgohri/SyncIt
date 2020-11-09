@@ -51,4 +51,3 @@ module.exports = yearSchema
 
 require('./yearSchemaVirtual')
 require('./yearSchemaMethods')
-require('./yearSchemaStatics')

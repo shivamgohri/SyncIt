@@ -105,4 +105,3 @@ module.exports = collegeSchema
 
 require('./collegeSchemaVirtual')
 require('./collegeSchemaMethods')
-require('./collegeSchemaStatics')
