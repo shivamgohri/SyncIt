@@ -10,7 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.10.10"
+    "mongoose": "^5.10.10",
+    "validator": "^13.1.17"
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",

@@ -5,7 +5,6 @@
  * @modify date 09-11-202020 43:15:00
  * @desc [connects to MongoDB Database]
  */
-
 const mongoose = require('mongoose')
 
 mongoose.connect(process.env.MONGODB_URL, {
