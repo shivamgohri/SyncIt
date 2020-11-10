@@ -6,8 +6,14 @@
  * @desc [description]
  */
 const mongoose = require('mongoose')
+const validator = require('validator')
 
 const teacherSchema = new mongoose.Schema({
+    collegeId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'College'
+    },
     email: {
         type: String,
         required: true,
@@ -26,7 +32,7 @@ const teacherSchema = new mongoose.Schema({
         required: true,
         trim: true,
         minlength: 8,
-        maxlength: 20,
+        maxlength: 256,
         validate(password) {
             if (password.toLowerCase().includes('password')) {
                 throw new Error('Password cannot contain password')
@@ -91,7 +97,6 @@ const teacherSchema = new mongoose.Schema({
             type: String,
             maxlength: 200,
             required: true
-            // ref: TO-DO
         }
     }]
 }, {

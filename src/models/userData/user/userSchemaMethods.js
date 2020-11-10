@@ -13,7 +13,7 @@ userSchema.pre('save', async function(next) {
     const user = this
 
     if (user.isModified('password')) {
-        user.password = await bcrypt.hash(user.password, 8)
+        user.password = user.getHashedPassword(user.password)
     }
     next()
 })
@@ -26,7 +26,10 @@ userSchema.methods.generateAuthToken = function(req) {
         expiresIn: 6 * 31 * 24 * 60 * 60
     })
 
-    user.tokens = user.tokens.concat({ token, host: req.headers['user-agent'] })
+    if (req.headers['user-agent'])
+        user.tokens = user.tokens.concat({ token, host: req.headers['user-agent'] })
+    else
+        user.tokens = user.tokens.concat({ token, host: 'Not Defined!' })
 
     return token
 }
@@ -35,13 +38,26 @@ userSchema.methods.getFullName = function() {
     return this.firstName + ' ' + this.lastName
 }
 
-userSchema.methods.getPublicProfile = function() {
+userSchema.methods.getPersonalProfile = function() {
     const user = this
-    const userPublicProfile = user.toObject()
+    const userPersonalProfile = user.toObject()
 
-    delete password
-    delete tokens
+    delete userPersonalProfile.password
+    delete userPersonalProfile.avatar
 
-    userPublicProfile.fullName = user.getFullName()
-    return userPublicProfile
+    if (user.avatar) {
+        userPersonalProfile.avatarUrl = user.getAvatarUrl()
+    }
+
+    userPersonalProfile.fullName = user.getFullName()
+    return userPersonalProfile
+}
+
+userSchema.methods.getHashedPassword = async function(password) {
+    const newPassword = await bcrypt.hash(password, 8)
+    return newPassword
+}
+
+userSchema.methods.getAvatarUrl = function() {
+    return process.env.API_URL + '/user/' + this._id + '/avatar'
 }

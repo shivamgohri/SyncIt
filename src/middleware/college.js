@@ -1,0 +1,1 @@
+const College = require('../models/collegeData/college/college')

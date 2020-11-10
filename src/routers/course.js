@@ -9,4 +9,7 @@ const express = require('express')
 const app = new express.Router()
 const Course = require('../models/collegeData/course/course')
 
+// create course
+
+
 module.exports = app

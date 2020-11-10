@@ -13,3 +13,9 @@ collegeSchema.virtual('courses', {
     ref: 'Course',
     foreignField: 'collegeId'
 })
+
+collegeSchema.virtual('teachers', {
+    localField: '_id',
+    ref: 'Teacher',
+    foreignField: 'collegeId'
+})

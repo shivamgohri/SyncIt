@@ -9,21 +9,18 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 
 const userSchema = new mongoose.Schema({
-    // collegeId: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     required: true,
-    //     ref: 'College'
-    // },
-    // courseId: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     required: true,
-    //     ref: 'Course'
-    // },
-    // classId: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     required: true,
-    //     ref: 'Class'
-    // },
+    collegeId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'College'
+    },
+    courseId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Course'
+    },
+    classId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Class'
+    },
     email: {
         type: String,
         required: true,
@@ -75,28 +72,26 @@ const userSchema = new mongoose.Schema({
             lastName = lastName.charAt(0).toUpperCase() + lastName.slice(1)
         }
     },
-    // countryCode: {
-    //     type: Number, 
-    //     required: true,
-    //     validate(code) {
-    //         if (code.toString().length > 6) {
-    //             throw new Error('Country Code is invalid')
-    //         }
-    //     }
-    // },
-    // number: {
-    //     type: Number,
-    //     required: true,
-    //     unique: true,
-    //     validate(number) {
-    //         if (number.toString().length != 10) {
-    //             throw new Error('10 digit number is required')
-    //         }
-    //     }
-    // },
-    // avatar: {
-    //     type: Buffer
-    // },
+    countryCode: {
+        type: Number, 
+        validate(code) {
+            if (code.toString().length > 6) {
+                throw new Error('Country Code is invalid')
+            }
+        }
+    },
+    number: {
+        type: Number,
+        unique: true,
+        validate(number) {
+            if (number.toString().length != 10) {
+                throw new Error('10 digit number is required')
+            }
+        }
+    },
+    avatar: {
+        type: Buffer
+    },
     tokens: [{
         token: {
             type: String,
@@ -107,7 +102,6 @@ const userSchema = new mongoose.Schema({
             type: String,
             maxlength: 200,
             required: true
-            // ref: TO-DO
         }
     }]
 }, {

@@ -8,7 +8,6 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const { countriesList } = require('../../../other/utilities')
-const contactSchema = require('../contact/contactSchema')
 
 const collegeSchema = new mongoose.Schema({
     shortName: {
@@ -37,10 +36,23 @@ const collegeSchema = new mongoose.Schema({
         }
     },
     contacts: [{
-        type: contactSchema,
-        validate(contacts) {
-            if (contacts.length > 3) {
-                throw new Error('Contact Limit exceeded')
+        countryCode: {
+            type: Number,
+            required: true,
+            validate(code) {
+                if (code.toString().length > 6) {
+                    throw new Error('Country Code is invalid')
+                }
+            }
+        },
+        number: {
+            type: Number,
+            unique: true,
+            required: true,
+            validate(number) {
+                if ((number.toString().length != 10) && (number.toString().length != 7)) {
+                    throw new Error('Number is invalid')
+                }
             }
         }
     }],
@@ -81,8 +93,7 @@ const collegeSchema = new mongoose.Schema({
     country: {
         type: String,
         required: true,
-        enum: countriesList(),
-        lowercase: true
+        enum: ['India']
     },
     numberOfCourses: {
         type: Number,
