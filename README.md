@@ -1,1 +1,1 @@
-## SyncIt - Backend
+# SyncIt
