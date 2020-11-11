@@ -30,8 +30,21 @@ const adminSchema = new mongoose.Schema({
     secret: {
         type: String,
         required: true,
+        unique: true,
         maxlength: 1024
-    }
+    },
+    tokens: [{
+        token: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        host: {
+            type: String,
+            maxlength: 200,
+            required: true
+        }
+    }]
 }, {
     timestamps: true
 })

@@ -1,3 +1,10 @@
+/**
+ * @author Shivam Gohri
+ * @email shivamgohri93@gmail.com
+ * @create date 11-11-202020 47:35:16
+ * @modify date 11-11-202020 47:35:16
+ * @desc [description]
+ */
 const jwt = require('jsonwebtoken')
 const Teacher = require('../models/userData/teacher/teacher')
 

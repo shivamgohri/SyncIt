@@ -32,7 +32,7 @@ adminSchema.statics.getAdminSecret = async function() {
 adminSchema.statics.findByCredentials = async (email, secret) => {
     
     try {
-        const admin = await Admin.find({ email, secret })
+        const admin = await Admin.findOne({ email, secret })
 
         if (!admin) {
             throw new Error('Credentials invalid')

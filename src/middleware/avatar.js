@@ -1,3 +1,10 @@
+/**
+ * @author Shivam Gohri
+ * @email shivamgohri93@gmail.com
+ * @create date 11-11-202020 41:35:16
+ * @modify date 11-11-202020 41:35:16
+ * @desc [description]
+ */
 const multer = require('multer')
 
 const userAvatar = multer({

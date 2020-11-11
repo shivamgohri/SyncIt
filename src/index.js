@@ -18,6 +18,8 @@ const yearRouter = require('./routers/year')
 const classRouter = require('./routers/class')
 const teacherRouter = require('./routers/teacher')
 const userRouter = require('./routers/user')
+const adminRouter = require('./routers/admin')
+const requestRouter = require('./routers/request')
 
 // App Server uses
 app.use(express.json())
@@ -27,6 +29,8 @@ app.use(yearRouter)
 app.use(classRouter)
 app.use(teacherRouter)
 app.use(userRouter)
+app.use(adminRouter)
+app.use(requestRouter)
 
 app.listen(port, () => {
     console.log('Express Server started on port - ' + port)

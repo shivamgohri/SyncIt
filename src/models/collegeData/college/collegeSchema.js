@@ -93,7 +93,7 @@ const collegeSchema = new mongoose.Schema({
     country: {
         type: String,
         required: true,
-        enum: ['India']
+        enum: countriesList()
     },
     numberOfCourses: {
         type: Number,
@@ -109,7 +109,6 @@ const collegeSchema = new mongoose.Schema({
         }
     }]
 }, {
-    timestamps: true
 })
 
 module.exports = collegeSchema
