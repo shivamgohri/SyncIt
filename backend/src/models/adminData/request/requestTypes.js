@@ -31,8 +31,27 @@ const validateRequest = (type, data) => {
     }
 }
 
+const createAcceptedRequestDoc =  async function(type, data) {
+
+    try {
+        if (!getTypesList().includes(type)) {
+            throw new Error('Invalid Request')
+        }
+        
+        if (type===types.COLLEGE) {
+            const college = new College({ ...data })
+            await college.save()
+            return college
+        }
+        throw new Error('Invalid Request')
+    } catch (err) {
+        throw err
+    }
+}
+
 module.exports = {
     types,
     getTypesList,
-    validateRequest
+    validateRequest,
+    createAcceptedRequestDoc
 }

@@ -20,6 +20,7 @@ const teacherRouter = require('./routers/teacher')
 const userRouter = require('./routers/user')
 const adminRouter = require('./routers/admin')
 const requestRouter = require('./routers/request')
+const adminPrivilegesRouter = require('./routers/adminPrivileges')
 
 // App Server uses
 app.use(express.json())
@@ -31,6 +32,7 @@ app.use(teacherRouter)
 app.use(userRouter)
 app.use(adminRouter)
 app.use(requestRouter)
+app.use(adminPrivilegesRouter)
 
 app.listen(port, () => {
     console.log('Express Server started on port - ' + port)

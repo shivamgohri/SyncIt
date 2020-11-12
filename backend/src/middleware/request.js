@@ -20,7 +20,7 @@ const verifyRequest = async (req, res, next) => {
         }
         next()
     } catch (err) {
-        res.status(400).send({ message: err.message })
+        res.status(400).send({ message: 'Invalid request', dev: err.message })
     }
 }
 

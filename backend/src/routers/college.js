@@ -7,17 +7,33 @@
  */
 const express = require('express')
 const app = new express.Router()
+const requestTypes = require('../models/adminData/request/requestTypes')
+const { authenticateTeacher } = require('../middleware/teacher')
+const { authenticateCollegeAdmin, addUpdatesToArray } = require('../middleware/college')
 const College = require('../models/collegeData/college/college')
 
-// create college
-app.post('/college', async (req, res) => {
+// get college
+app.get('/college/:id', async (req, res) => {
 
     try {
-        const college = new College(req.body)
-        await college.save()
-        res.status(201).send({ ...college._doc })
+        const college = await College.findById({ _id: req.params.id })
+        if (!college) {
+            throw new Error('Invalid Request')
+        }
+        res.send({ ...college.getProfile() })
     } catch (err) {
-        res.status(400).send({ message: err.message })
+        res.status(404).send({ message: 'Invalid Request', dev: err.message })
+    }
+})
+
+// update
+app.patch('/college', authenticateTeacher, authenticateCollegeAdmin, addUpdatesToArray, async (req, res) => {
+
+    try {
+        const college = await College.findByIdAndUpdate({ _id: req.college._id }, req.body, { new: true })
+        res.status(200).send({ ...college.getProfile() }) 
+    } catch (err) {
+        res.status(400).send({ message: 'Invalid Request', dev: err.message })
     }
 })
 

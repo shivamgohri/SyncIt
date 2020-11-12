@@ -7,7 +7,6 @@
  */
 const adminSchema = require('./adminSchema')
 const jwt = require('jsonwebtoken')
-const admin = require('../../../middleware/admin')
 
 adminSchema.methods.generateAuthToken = function(req, removeAllTokensExceptCurrent = "true") {
     const admin = this

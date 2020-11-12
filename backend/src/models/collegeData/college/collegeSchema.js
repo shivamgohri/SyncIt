@@ -56,7 +56,7 @@ const collegeSchema = new mongoose.Schema({
             }
         }
     }],
-    image: {
+    avatar: {
         type: Buffer
     },
     address: {
@@ -109,6 +109,7 @@ const collegeSchema = new mongoose.Schema({
         }
     }]
 }, {
+    timestamps: true
 })
 
 module.exports = collegeSchema

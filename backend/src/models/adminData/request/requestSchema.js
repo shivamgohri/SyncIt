@@ -23,7 +23,7 @@ const requestSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    acceptedById: {
+    accepter: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Admin'
     }

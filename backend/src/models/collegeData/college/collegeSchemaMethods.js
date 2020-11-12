@@ -7,18 +7,18 @@
  */
 const collegeSchema = require('./collegeSchema')
 
-collegeSchema.methods.getShortProfile = () => {
+collegeSchema.methods.getProfile = function() {
     const college = this
-    const collegeShortProfile = {
-        _id: college._id,
-        name: college.name,
-        email: college.email,
-        city: college.city,
-        state: college.state,
-        country: college.country,
-        numberOfCourses: college.numberOfCourses,
-        createdAt: college.createdAt,
-        updatedAt: college.updatedAt
+    const collegeProfile = college.toObject()
+
+    delete collegeProfile.avatar
+
+    if (college.avatar) {
+        collegeProfile.avatarUrl = college.getAvatarUrl()
     }
-    return collegeShortProfile
+    return collegeProfile
+}
+
+collegeSchema.methods.getAvatarUrl = function() {
+    return process.env.API_URL + '/college/' + this._id + '/avatar'
 }

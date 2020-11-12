@@ -9,6 +9,7 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const generator = require('generate-password')
 const adminSchema = require('./adminSchema')
+const Request = require('../request/request')
 
 // STATICS
 adminSchema.statics.getAdminSecret = async function() {
@@ -41,6 +42,22 @@ adminSchema.statics.findByCredentials = async (email, secret) => {
         return admin
     } catch (err) {
         throw new Error('Credentials invalid')
+    }
+}
+
+adminSchema.statics.handleAccept = async (requestId) => {
+
+    try {
+        if (!requestId) {
+            throw new Error('Invalid Request')
+        }    
+        const request = await Request.findById({ _id: requestId })
+        if (!request) {
+            throw new Error('Invalid Request')
+        }
+        return request
+    } catch (err) {
+        throw err
     }
 }
 
