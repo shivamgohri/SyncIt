@@ -14,8 +14,8 @@ const verifyCreateAdmin = (req, res, next) => {
         if (!req.body.email || !req.body.secret || !req.body.name) {
             throw new Error('Credentials Missing')
         }
-        
-        if (JSON.stringify(process.env.ADMIN_CREATE_SECRET)===JSON.stringify("i?.>jhasciabjkkjvbiwv7635r87?.[;l[m`1234")) {
+
+        if (JSON.stringify(process.env.ADMIN_CREATE_SECRET)===JSON.stringify(req.body.secret)) {
             return next()
         }
     

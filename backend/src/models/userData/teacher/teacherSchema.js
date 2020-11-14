@@ -97,6 +97,11 @@ const teacherSchema = new mongoose.Schema({
             type: String,
             maxlength: 200,
             required: true
+        },
+        remoteAddress: {
+            type: String,
+            maxlength: 32,
+            required: true
         }
     }]
 }, {

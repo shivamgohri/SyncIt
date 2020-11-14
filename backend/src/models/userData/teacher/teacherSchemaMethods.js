@@ -35,11 +35,19 @@ teacherSchema.methods.generateAuthToken = function(req) {
         expiresIn: 6 * 31 * 24 * 60 * 60
     })
 
-    if (req.headers['user-agent'])
-        teacher.tokens = teacher.tokens.concat({ token, host: req.headers['user-agent'] })
-    else
-        teacher.tokens = teacher.tokens.concat({ token, host: 'Not Defined!' })
+    const tokenObject = { token }
 
+    if (req.headers['user-agent'])
+        tokenObject.host = req.headers['user-agent']
+    else
+        tokenObject.host = 'Undefined'
+
+    if (req.connection.remoteAddress) 
+        tokenObject.remoteAddress = req.connection.remoteAddress
+    else
+        tokenObject.remoteAddress = 'Undefined'
+
+    teacher.tokens = teacher.tokens.concat(tokenObject)
     return token
 }
 

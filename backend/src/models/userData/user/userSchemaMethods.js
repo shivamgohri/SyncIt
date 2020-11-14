@@ -26,11 +26,19 @@ userSchema.methods.generateAuthToken = function(req) {
         expiresIn: 6 * 31 * 24 * 60 * 60
     })
 
-    if (req.headers['user-agent'])
-        user.tokens = user.tokens.concat({ token, host: req.headers['user-agent'] })
-    else
-        user.tokens = user.tokens.concat({ token, host: 'Not Defined!' })
+    const tokenObject = { token }
 
+    if (req.headers['user-agent'])
+        tokenObject.host = req.headers['user-agent']
+    else
+        tokenObject.host = 'Undefined'
+
+    if (req.connection.remoteAddress) 
+        tokenObject.remoteAddress = req.connection.remoteAddress
+    else
+        tokenObject.remoteAddress = 'Undefined'
+
+    user.tokens = user.tokens.concat(tokenObject)
     return token
 }
 

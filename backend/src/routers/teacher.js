@@ -83,7 +83,10 @@ app.patch('/teacher', authenticateTeacher, async (req, res) => {
         if (req.body.password) {
             req.body.password = await req.teacher.getHashedPassword(req.body.password)
         }
-        const updatedTeacher = await Teacher.findByIdAndUpdate({ _id: req.teacher._id }, req.body, { new: true })
+        const updatedTeacher = await Teacher.findOneAndUpdate(
+            { _id: req.teacher._id }, 
+            req.body, { new: true, runValidators: true }
+        )
         res.status(200).send({ ...updatedTeacher.getPersonalProfile() })
     } catch (err) {
         res.status(400).send({ message: err.message })

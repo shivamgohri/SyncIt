@@ -6,3 +6,8 @@
  * @desc [description]
  */
 const courseSchema = require('./courseSchema')
+
+courseSchema.methods.getProfile = function() {
+    const course = this.toObject()
+    return course
+}

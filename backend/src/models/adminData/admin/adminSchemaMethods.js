@@ -16,10 +16,19 @@ adminSchema.methods.generateAuthToken = function(req, removeAllTokensExceptCurre
         expiresIn: 6 * 31 * 24 * 60 * 60
     })
 
+    const tokenObject = { token }
+
     if (req.headers['user-agent'])
-        admin.tokens = admin.tokens.concat({ token, host: req.headers['user-agent'] })
+        tokenObject.host = req.headers['user-agent']
     else
-        admin.tokens = admin.tokens.concat({ token, host: 'Not Defined!' })
+        tokenObject.host = 'Undefined'
+
+    if (req.connection.remoteAddress) 
+        tokenObject.remoteAddress = req.connection.remoteAddress
+    else
+        tokenObject.remoteAddress = 'Undefined'
+    
+    admin.tokens = admin.tokens.concat(tokenObject)
 
     if (removeAllTokensExceptCurrent == "true") {
         admin.removeAllTokensExceptCurrent(token)

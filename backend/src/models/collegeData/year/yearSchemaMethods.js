@@ -6,3 +6,8 @@
  * @desc [description]
  */
 const yearSchema = require('./yearSchema')
+
+yearSchema.methods.getProfile = function() {
+    const year = this.toObject()
+    return year
+}

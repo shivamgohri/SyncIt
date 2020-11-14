@@ -12,6 +12,7 @@ const { addUpdatesToArray } = require('../middleware/college')
 const College = require('../models/collegeData/college/college')
 const Request = require('../models/adminData/request/request')
 const requestTypes = require('../models/adminData/request/requestTypes')
+const { findCollegeByParams } = require('../middleware/adminPrivileges')
 
 // create college 
 app.post('/sudo/college', authenticateAdmin, async (req, res) => {
@@ -32,13 +33,13 @@ app.post('/sudo/college', authenticateAdmin, async (req, res) => {
 })
 
 // update
-app.patch('/sudo/college', authenticateAdmin, addUpdatesToArray, async (req, res) => {
+app.patch('/sudo/college/:id', authenticateAdmin, findCollegeByParams, addUpdatesToArray, async (req, res) => {
 
     try {
-        const college = await College.findByIdAndUpdate({ _id: req.body.collegeId }, req.body, { new: true })
-        if (!college) {
-            throw new Error('No College Exists')
-        }
+        const college = await College.findOneAndUpdate(
+            { _id: req.college._id }, 
+            req.body, { new: true, runValidators: true 
+        })
         res.send({ ...college.getProfile() })
     } catch (err) {
         res.status(400).send({ message: 'Invalid Request', dev: err.message })

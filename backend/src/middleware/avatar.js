@@ -33,7 +33,21 @@ const teacherAvatar = multer({
     }
 })
 
+const collegeAvatar = multer({
+    limits: {
+        fileSize: 1024 * 1024 * 2
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+            return cb(new Error('Please upload an image'))
+        }
+
+        cb(undefined, true)
+    }
+})
+
 module.exports = {
     userAvatar,
-    teacherAvatar
+    teacherAvatar,
+    collegeAvatar
 }
