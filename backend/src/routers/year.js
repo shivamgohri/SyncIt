@@ -13,7 +13,7 @@ const { addUpdatesToArray, authenticateYearAdmin } = require('../middleware/year
 const Year = require('../models/collegeData/year/year')
 
 // create
-app.post('/year', authenticateTeacher, authenticateCourseAdmin, async (req, res) => {
+app.post('/course/:id/year', authenticateTeacher, authenticateCourseAdmin, async (req, res) => {
 
     try {
         const year = new Year({ ...req.body, courseId: req.course._id, collegeId: req.teacher.collegeId })

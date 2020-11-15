@@ -20,6 +20,7 @@ const authenticateYearAdmin = async (req, res, next) => {
         }
         req.year = year
         req.yearAdmin = req.teacher
+        next()
     } catch (err) {
         res.status(400).send({ message: 'Invalid Request', dev: err.message })
     }

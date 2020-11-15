@@ -46,4 +46,19 @@ app.patch('/sudo/college/:id', authenticateAdmin, findCollegeByParams, addUpdate
     }
 })
 
+// delete
+app.delete('/sudo/college/:id', authenticateAdmin, async (req, res) => {
+
+    try {
+        const college = await College.findByIdAndDelete({ _id: req.params.id })
+        if (!college) {
+            return res.status(404).send({ message: 'College Not Found', dev: 'collge is not found' })
+        }
+        // TO-DO => Remove all course, year & classes
+        res.send()
+    } catch (err) {
+        res.status(400).send({ message: 'Invalid Request', dev: err.message })
+    }
+})
+
 module.exports = app
