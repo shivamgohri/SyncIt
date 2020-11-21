@@ -17,9 +17,13 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Course'
     },
-    classId: {
+    yearId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Class'
+        ref: 'Year'
+    },
+    isSubscribed: {
+        type: Boolean,
+        default: false  
     },
     email: {
         type: String,

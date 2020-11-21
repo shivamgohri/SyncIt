@@ -6,7 +6,7 @@
  * @desc [description]
  */
 const mongoose = require('mongoose')
-const { hasDublicateAdmins } = require('../../../other/utilities')
+const { hasDublicateAdmins, hasDublicateStudents } = require('../../../other/utilities')
 
 const yearSchema = new mongoose.Schema({
     collegeId: {
@@ -54,6 +54,21 @@ const yearSchema = new mongoose.Schema({
             if (hasDublicateAdmins(admins) || admins.length==0) {
                 throw new Error('Admins should be unique')
             }            
+        }
+    },
+    students: {
+        type: [{
+            student: {
+                type: mongoose.Schema.Types.ObjectId,
+                required: true,
+                unique: true,
+                ref: 'User'
+            }
+        }],
+        validate(students) {
+            if (hasDublicateStudents(students)) {
+                throw new Error('Students should be unique')
+            }
         }
     }
 }, {

@@ -7,7 +7,6 @@
  */
 const express = require('express')
 const app = new express.Router()
-const requestTypes = require('../models/adminData/request/requestTypes')
 const { authenticateTeacher } = require('../middleware/teacher')
 const { authenticateCollegeAdmin, addUpdatesToArray } = require('../middleware/college')
 const College = require('../models/collegeData/college/college')

@@ -41,7 +41,7 @@ app.patch('/course/:id', authenticateTeacher, authenticateCourseAdmin, addUpdate
 })
 
 // get
-app.get('/college/:id', async (req, res) => {
+app.get('/course/:id', async (req, res) => {
 
     try {
         const course = await Course.findById({ _id: req.params.id })

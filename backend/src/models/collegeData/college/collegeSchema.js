@@ -7,7 +7,7 @@
  */
 const mongoose = require('mongoose')
 const validator = require('validator')
-const { countriesList, hasDublicateAdmins } = require('../../../other/utilities')
+const { countriesList, hasDublicateAdmins, hasDublicateStudents } = require('../../../other/utilities')
 
 const collegeSchema = new mongoose.Schema({
     shortName: {
@@ -113,6 +113,21 @@ const collegeSchema = new mongoose.Schema({
             if (hasDublicateAdmins(admins)) {
                 throw new Error('Admins should be unique')
             }            
+        }
+    },
+    students: {
+        type: [{
+            student: {
+                type: mongoose.Schema.Types.ObjectId,
+                required: true,
+                unique: true,
+                ref: 'User'
+            }
+        }],
+        validate(students) {
+            if (hasDublicateStudents(students)) {
+                throw new Error('Students should be unique')
+            }
         }
     }
 }, {

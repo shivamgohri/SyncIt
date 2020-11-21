@@ -7,6 +7,7 @@
  */
 const express = require('express')
 const app = new express.Router()
+const { authenticateUser } = require('../middleware/user')
 const { authenticateCourseAdmin } = require('../middleware/course')
 const { authenticateTeacher } = require('../middleware/teacher')
 const { addUpdatesToArray, authenticateYearAdmin } = require('../middleware/year')
@@ -24,6 +25,18 @@ app.post('/course/:id/year', authenticateTeacher, authenticateCourseAdmin, async
     }
 })
 
+// get year
+app.get('/year/:id', async (req, res) => {
+
+    try {
+        const year = await Year.findById({ _id: req.params.id })
+        if (!year) { return res.status(404).send() }
+        res.status(200).send({ ...year.getProfile() })
+    } catch (err) {
+        res.status(400).send({ message: 'Invalid Request', dev: err.message })
+    }
+})
+
 // update
 app.patch('/year/:id', authenticateTeacher, authenticateYearAdmin, addUpdatesToArray, async (req, res) => {
 
@@ -33,6 +46,32 @@ app.patch('/year/:id', authenticateTeacher, authenticateYearAdmin, addUpdatesToA
             req.body, { new: true, runValidators: true }
         )
         res.status(200).send({ ...year.getProfile() })
+    } catch (err) {
+        res.status(400).send({ message: 'Invalid Request', dev: err.message })
+    }
+})
+
+// subscribe to college
+app.post('/year/:id/subscribe', authenticateUser, async (req, res) => {
+
+    try {
+        const year = await Year.findById({ _id: req.params.id })
+        if (!year) { return res.status(404).send() }
+        await req.user.subscribe(year._id, year.courseId, year.collegeId)
+        res.send()
+    } catch (err) {
+        res.status(400).send({ message: 'Invalid Request', dev: err.message })
+    }
+})
+
+// unsubscribe to college
+app.delete('/year/:id/subscribe', authenticateUser, async (req, res) => {
+
+    try {
+        const year = await Year.findById({ _id: req.params.id })
+        if (!year) { return res.status(404).send() }
+        await req.user.unsubscribe(year._id, year.courseId, year.collegeId)
+        res.send()
     } catch (err) {
         res.status(400).send({ message: 'Invalid Request', dev: err.message })
     }

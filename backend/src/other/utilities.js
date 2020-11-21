@@ -20,7 +20,19 @@ const hasDublicateAdmins = function(admins) {
     return adminSet.size !== admins.length
 }
 
+const hasDublicateStudents = function(students) {
+    if (students.length==0) {
+        return false
+    }
+    const studentSet = new Set()
+    students.forEach(student => {
+        studentSet.add(student.student.toString())
+    })
+    return studentSet.size !== students.length
+}
+
 module.exports = {
     countriesList,
-    hasDublicateAdmins
+    hasDublicateAdmins,
+    hasDublicateStudents
 }

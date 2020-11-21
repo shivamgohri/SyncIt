@@ -76,6 +76,17 @@ app.get('/user', authenticateUser, async (req, res) => {
     }
 })
 
+app.get('/user/:id', async (req, res) => {
+
+    try {
+        const user = await User.findById({ _id: req.params.id })
+        if (!user) { return res.status(404).send() }
+        res.send({ ...user.getPublicProfile() })
+    } catch (err) {
+        res.status(404).send({ message: err.message })
+    }
+})
+
 // update
 app.patch('/user', authenticateUser, async (req, res) => {
 
