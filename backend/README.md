@@ -15,7 +15,7 @@ This is the backend source code for ```SyncIt```.
 ## Setup
 
 Clone the Repo and install dependencies
-```bash
+```javascript
 git clone https://github.com/shivamgohri/SyncIt.git
 cd SyncIt
 
@@ -26,12 +26,12 @@ Changes Required
 * ```Line 8``` in ```package.json``` to ```"dev": "env-cmd -f ./config/test.env nodemon src/index.js"```
 
 Run in dev mode
-```bash
+```javascript
 npm run dev
 ```
 
 Run the app
-```bash
+```javascript
 npm start
 ```
 
