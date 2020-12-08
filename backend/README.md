@@ -6,7 +6,7 @@
     <a href="https://github.com/shivamgohri"><img src="https://img.shields.io/github/followers/shivamgohri?label=Follow&style=social"></a>
 </p>
 
-# SyncIt
+# SyncIt - Backend
 
 This is the backend source code for ```SyncIt```.
 
